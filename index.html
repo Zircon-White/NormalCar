@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURELIS GT — 折面灰模</title>
+  <meta name="description" content="AURELIS GT 概念轿跑的程序化折面灰模，可在浏览器中旋转、缩放与拆解。" />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="js/geom.js"></script>
+  <script defer src="js/car.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <main id="app">
+    <canvas id="gl" aria-label="AURELIS GT 三维灰模"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="monogram" aria-hidden="true">
+          <span class="monogram-main">F</span>
+          <span class="monogram-index">01</span>
+        </div>
+        <div class="brand-copy">
+          <div class="eyebrow">FORM / 01 &nbsp;— &nbsp;CLAY STUDY</div>
+          <h1>AURELIS <em>GT</em></h1>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="stats" id="stats">···</div>
+        <div class="divider"></div>
+        <div class="scale">1 : 1 &nbsp;/&nbsp; 4600 MM</div>
+      </div>
+    </header>
+
+    <div class="viewport-tag">
+      <span class="dot"></span>
+      <span>PERSPECTIVE</span>
+      <span class="tag-sep">/</span>
+      <span>STUDIO CLAY</span>
+    </div>
+
+    <div class="hint">
+      <span><b>拖拽</b> 旋转</span>
+      <span><b>滚轮</b> 缩放</span>
+      <span><b>点击</b> 选部件</span>
+      <span><b>空格</b> 自转</span>
+    </div>
+
+    <aside class="inspector" id="inspector" aria-live="polite">
+      <div class="inspector-head">
+        <div>
+          <div class="part-code" id="selCode">BDY-00</div>
+          <div class="part-name" id="selName">零件</div>
+          <div class="part-en" id="selEn">PART</div>
+        </div>
+        <button class="close-btn" id="clearSel" aria-label="关闭">×</button>
+      </div>
+      <div class="part-spec">
+        <div class="spec-row"><span>尺寸</span><b id="selDims">—</b></div>
+        <div class="spec-row"><span>网格</span><b id="selTris">—</b></div>
+      </div>
+      <div class="inspector-actions">
+        <button id="focusBtn">聚焦零件</button>
+        <button id="isolateBtn" class="accent">单独显示</button>
+      </div>
+    </aside>
+
+    <footer class="controlbar">
+      <div class="explode-control">
+        <button id="explodeBtn" class="explode-button" aria-label="切换拆解">
+          <span class="explode-icon" aria-hidden="true">
+            <i></i><i></i><i></i>
+          </span>
+          拆解
+        </button>
+        <div class="slider-wrap">
+          <div class="slider-labels"><span>ASSEMBLED</span><span>EXPLODED</span></div>
+          <input id="explode" type="range" min="0" max="100" value="0" aria-label="拆解程度" />
+        </div>
+        <output id="explodeVal" for="explode">0%</output>
+      </div>
+      <div class="control-spacer"></div>
+      <div class="view-actions">
+        <button id="autoBtn" class="plain-button">
+          <span class="btn-dot"></span>自动旋转
+        </button>
+        <button id="resetBtn" class="plain-button">重置视角</button>
+      </div>
+    </footer>
+
+    <div class="axis" aria-hidden="true">
+      <span class="axis-x">X</span><span class="axis-y">Y</span><span class="axis-z">Z</span>
+      <svg viewBox="0 0 64 64">
+        <line x1="32" y1="34" x2="52" y2="44" class="ax x" />
+        <line x1="32" y1="34" x2="32" y2="12" class="ax y" />
+        <line x1="32" y1="34" x2="12" y2="44" class="ax z" />
+        <circle cx="32" cy="34" r="2.2" class="axis-origin" />
+      </svg>
+    </div>
+
+    <div class="model-caption">
+      <span>FRONT-ENGINED V8</span>
+      <span>·</span>
+      <span>CARBON MONOCOQUE</span>
+      <span>·</span>
+      <span>2 SEATS</span>
+    </div>
+
+    <div id="loading" class="loading">
+      <div class="loading-mark">F<span>01</span></div>
+      <div class="loading-label">装配灰模</div>
+      <div class="loading-line"></div>
+    </div>
+
+    <div id="fallback" class="fallback" hidden>
+      当前浏览器未启用 WebGL，无法显示三维模型。
+    </div>
+  </main>
+</body>
+</html>
